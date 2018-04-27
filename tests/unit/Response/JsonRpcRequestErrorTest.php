@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DawidMazurek\JsonRpcClient\Response;
 
 use PHPUnit\Framework\TestCase;

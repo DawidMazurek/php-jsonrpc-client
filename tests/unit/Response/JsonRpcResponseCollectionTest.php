@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DawidMazurek\JsonRpcClient\Response;
 
 use DawidMazurek\JsonRpcClient\Request\JsonRpcRequest;
@@ -30,8 +32,7 @@ class JsonRpcResponseCollectionTest extends TestCase
      */
     public function returnsResponseForGivenRequest()
     {
-        $response = $this->createMock(JsonRpcResponse::class);
-        $response->method('getId')->willReturn(1);
+        $response = new JsonRpcRequestResponse(['id' => 1, 'result' => 1]);
         $this->requests->method('getRequestId')->willReturn(1);
 
         $responses = new JsonRpcResponseCollection($this->requests);

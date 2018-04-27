@@ -30,7 +30,7 @@ class JsonRpcResponseCollection
         $this->responses[$response->getId()] = $response;
     }
 
-    public function getResponseFor(JsonRpcRequest $request): JsonRpcResponse
+    public function getResponseFor(JsonRpcRequest $request): JsonRpcRequestResponse
     {
         $offset = $this->requests->getRequestId($request);
         return $this->responses[$offset];
