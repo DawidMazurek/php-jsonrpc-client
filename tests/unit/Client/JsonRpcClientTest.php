@@ -74,7 +74,6 @@ class JsonRpcClientTest extends TestCase
         $this->assertEquals(2, $response2->getId());
     }
 
-
     /**
      * @test
      */
