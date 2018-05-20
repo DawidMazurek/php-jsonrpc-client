@@ -31,4 +31,15 @@ class JsonRpcRequestError implements JsonRpcResponse
     {
         return $this->errorMessage;
     }
+
+    public function getResult(): array
+    {
+        return [
+            'id' => $this->requestId,
+            'error' => [
+                'code' => $this->errorCode,
+                'message' => $this->errorMessage
+            ]
+        ];
+    }
 }
