@@ -62,7 +62,11 @@ class JsonRpcClient
         );
 
         $parsedResponse = json_decode(((string)$response->getBody()->getContents()), true);
-        
+
+        if (is_array($parsedResponse) && array_key_exists('jsonrpc', $parsedResponse)) {
+            $parsedResponse = [$parsedResponse];
+        }
+
         $responses = new JsonRpcResponseCollection($requests);
 
         if (!empty($parsedResponse)) {
