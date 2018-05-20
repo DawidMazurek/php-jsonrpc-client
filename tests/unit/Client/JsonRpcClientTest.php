@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace DawidMazurek\JsonRpcClient\Client;
 
 use DawidMazurek\JsonRpcClient\Boundary\Http\RequestFactory;
+use DawidMazurek\JsonRpcClient\Exception\NoResponseForGivenRequest;
+use DawidMazurek\JsonRpcClient\Request\JsonRpcNotification;
 use DawidMazurek\JsonRpcClient\Request\JsonRpcRequest;
 use DawidMazurek\JsonRpcClient\Request\JsonRpcRequestCollection;
 use Http\Client\HttpClient;
@@ -72,4 +74,34 @@ class JsonRpcClientTest extends TestCase
         $this->assertEquals(2, $response2->getId());
     }
 
+
+    /**
+     * @test
+     */
+    public function sendsNotification()
+    {
+        $notification = $this->createMock(JsonRpcNotification::class);
+        $requests = new JsonRpcRequestCollection();
+        $requests->addRequest($notification);
+
+        $response = $this->createMock(ResponseInterface::class);
+        $responseBody = $this->createMock(StreamInterface::class);
+
+        $jsonRpcResponse = '';
+        $response->method('getBody')->willReturn($responseBody);
+        $responseBody->method('getContents')->willReturn($jsonRpcResponse);
+
+        $this->httpClient->method('sendRequest')
+            ->willReturn($response);
+
+        $client = new JsonRpcClient(
+            $this->httpClient,
+            $this->requestFactory
+        );
+
+        $responses = $client->execute($requests);
+
+        $this->expectException(NoResponseForGivenRequest::class);
+        $responses->getResponseFor($notification);
+    }
 }

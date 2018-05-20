@@ -12,9 +12,8 @@ use DawidMazurek\JsonRpcClient\Request\JsonRpcRequest;
 use DawidMazurek\JsonRpcClient\Request\JsonRpcRequestCollection;
 use Http\Adapter\Guzzle6\Client;
 
-
 $config = [
-    'uri' => 'http://localhost:8182/examples/server.php'
+    'uri' => 'http://localhost:8182/examples/postInput.php'
 ];
 
 $adapter = Client::createWithConfig($config);
@@ -37,5 +36,9 @@ $bulkResponse = $client->execute($requests);
 $sampleResponse = $bulkResponse->getResponseFor($sampleRequest);
 $sampleResponse2 = $bulkResponse->getResponseFor($sampleRequest2);
 
-var_dump($sampleResponse);
-var_dump($sampleResponse2);
+if ($bulkResponse->hasRequestFailed($sampleRequest2)) {
+    $result = $bulkResponse->getResponseFor($sampleRequest2);
+}
+
+
+var_dump($result);

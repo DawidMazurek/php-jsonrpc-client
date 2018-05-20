@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DawidMazurek\JsonRpcClient\Response;
 
+use DawidMazurek\JsonRpcClient\Exception\NoResponseForGivenRequest;
+use DawidMazurek\JsonRpcClient\Request\JsonRpcNotification;
 use DawidMazurek\JsonRpcClient\Request\JsonRpcRequest;
 use DawidMazurek\JsonRpcClient\Request\JsonRpcRequestCollection;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -69,5 +71,18 @@ class JsonRpcResponseCollectionTest extends TestCase
         $responses->addResponse($response);
 
         $this->assertFalse($responses->hasRequestFailed($this->request));
+    }
+
+    /**
+     * @test
+     */
+    public function throwsExceptionWhenNotificationResponseRequested()
+    {
+        $this->expectException(NoResponseForGivenRequest::class);
+
+        $notification = $this->createMock(JsonRpcNotification::class);
+
+        $responses = new JsonRpcResponseCollection($this->requests);
+        $responses->getResponseFor($notification);
     }
 }
