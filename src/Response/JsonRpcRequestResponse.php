@@ -20,8 +20,11 @@ class JsonRpcRequestResponse implements JsonRpcResponse
         return $this->requestId;
     }
 
-    public function getResult()
+    public function getResult(): array
     {
-        return $this->result;
+        return [
+            'id' => $this->requestId,
+            'result' => $this->result
+        ];
     }
 }

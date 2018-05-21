@@ -16,14 +16,14 @@ class JsonRpcRequestResponseTest extends TestCase
         $requestId = 1;
         $result = ['res' => 'result payload'];
 
-        $response = new JsonRpcRequestResponse(
-            [
-                'id' => $requestId,
-                'result' => $result,
-            ]
-        );
+        $expected = [
+            'id' => $requestId,
+            'result' => $result,
+        ];
+
+        $response = new JsonRpcRequestResponse($expected);
 
         $this->assertEquals($requestId, $response->getId());
-        $this->assertEquals($result, $response->getResult());
+        $this->assertEquals($expected, $response->getResult());
     }
 }

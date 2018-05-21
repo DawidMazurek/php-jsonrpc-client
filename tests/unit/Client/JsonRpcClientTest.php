@@ -68,9 +68,9 @@ class JsonRpcClientTest extends TestCase
         $response = $client->execute($requests);
         $response1 = $response->getResponseFor($request1);
         $response2 = $response->getResponseFor($request2);
-        $this->assertEquals('abc', $response1->getResult());
+        $this->assertEquals('abc', $response1->getResult()['result']);
         $this->assertEquals(1, $response1->getId());
-        $this->assertEquals('abc', $response2->getResult());
+        $this->assertEquals('abc', $response2->getResult()['result']);
         $this->assertEquals(2, $response2->getId());
     }
 
