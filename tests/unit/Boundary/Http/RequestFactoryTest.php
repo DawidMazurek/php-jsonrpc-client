@@ -16,7 +16,7 @@ class RequestFactoryTest extends TestCase
      */
     private $config;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->config = $this->createMock(JsonRpcClientConfiguration::class);
     }

@@ -32,7 +32,7 @@ class JsonRpcClientTest extends TestCase
      */
     private $requests;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->httpClient = $this->createMock(HttpClient::class);
         $this->requestFactory = $this->createMock(RequestFactory::class);

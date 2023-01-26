@@ -23,7 +23,7 @@ class JsonRpcResponseCollectionTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->requests = $this->createMock(JsonRpcRequestCollection::class);
         $this->request = $this->createMock(JsonRpcRequest::class);
@@ -34,7 +34,7 @@ class JsonRpcResponseCollectionTest extends TestCase
      */
     public function returnsResponseForGivenRequest()
     {
-        $response = new JsonRpcRequestResponse(['id' => 1, 'result' => 1]);
+        $response = new JsonRpcRequestResponse(['id' => 1, 'result' => '1']);
         $this->requests->method('getRequestId')->willReturn(1);
 
         $responses = new JsonRpcResponseCollection($this->requests);
@@ -49,7 +49,7 @@ class JsonRpcResponseCollectionTest extends TestCase
     public function detectsFailedResponseWhenErrorObjectGiven()
     {
         $response = $this->createMock(JsonRpcRequestError::class);
-        $response->method('getId')->willReturn(1);
+        $response->method('getId')->willReturn('1');
         $this->requests->method('getRequestId')->willReturn(1);
 
         $responses = new JsonRpcResponseCollection($this->requests);
@@ -64,7 +64,7 @@ class JsonRpcResponseCollectionTest extends TestCase
     public function notDetectsFailedResponseWhenResponseObjectGiven()
     {
         $response = $this->createMock(JsonRpcRequestResponse::class);
-        $response->method('getId')->willReturn(1);
+        $response->method('getId')->willReturn('1');
         $this->requests->method('getRequestId')->willReturn(1);
 
         $responses = new JsonRpcResponseCollection($this->requests);
